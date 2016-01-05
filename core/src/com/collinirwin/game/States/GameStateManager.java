@@ -1,4 +1,4 @@
-package com.collinirwin.game.States;
+package com.collinirwin.game.states;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
