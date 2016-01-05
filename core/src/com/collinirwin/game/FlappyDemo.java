@@ -16,12 +16,10 @@ public class FlappyDemo extends ApplicationAdapter {
 
 	private GameStateManager gsm;
 	private SpriteBatch batch;
-	Texture img;
 	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
 
 		gsm = new GameStateManager();
 		gsm.push(new MenuState(gsm));
