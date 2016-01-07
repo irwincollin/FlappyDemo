@@ -58,6 +58,10 @@ public class PlayState extends State {
                 final float newPos = tube.getPosTopTube().x + ((Tube.TUBE_WIDTH + TUBE_SPACING) * TUBE_COUNT);
                 tube.reposition(newPos);
             }
+
+            if(tube.collides(bird.getBounds())) {
+                gsm.set(new PlayState(gsm));
+            }
         }
 
         cam.update();

@@ -1,6 +1,7 @@
 package com.collinirwin.game.sprites;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.Random;
@@ -19,6 +20,8 @@ public class Tube {
     private Texture bottomTube;
     private Vector2 posTopTube;
     private Vector2 posBotTube;
+    private Rectangle boundsTop;
+    private Rectangle boundsBot;
 
     private Random rand;
 
@@ -29,6 +32,9 @@ public class Tube {
 
         posTopTube = new Vector2(x, rand.nextInt(FLUCTUATION) + TUBE_GAP + LOWEST_OPENING);
         posBotTube = new Vector2(x, posTopTube.y - TUBE_GAP - bottomTube.getHeight());
+
+        boundsTop = new Rectangle(posTopTube.x, posTopTube.y, topTube.getWidth(), topTube.getHeight());
+        boundsBot = new Rectangle(posBotTube.x, posBotTube.y, bottomTube.getWidth(), bottomTube.getHeight());
     }
 
     public Texture getTopTube() {
@@ -50,5 +56,12 @@ public class Tube {
     public void reposition(float x) {
         posTopTube.set(x, rand.nextInt(FLUCTUATION) + TUBE_GAP + LOWEST_OPENING);
         posBotTube.set(x, posTopTube.y - TUBE_GAP - bottomTube.getHeight());
+
+        boundsTop.setPosition(posTopTube.x, posTopTube.y);
+        boundsBot.setPosition(posBotTube.x, posBotTube.y);
+    }
+
+    public boolean collides(Rectangle rect) {
+        return rect.overlaps(boundsTop) || rect.overlaps(boundsBot);
     }
 }
