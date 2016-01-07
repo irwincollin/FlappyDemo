@@ -64,4 +64,9 @@ public class Tube {
     public boolean collides(Rectangle rect) {
         return rect.overlaps(boundsTop) || rect.overlaps(boundsBot);
     }
+
+    public void dispose() {
+        topTube.dispose();
+        bottomTube.dispose();
+    }
 }

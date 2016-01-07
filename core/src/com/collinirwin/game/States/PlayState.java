@@ -19,7 +19,6 @@ public class PlayState extends State {
 
     private Bird bird;
     private Texture bg;
-    private Tube tube;
 
     private Array<Tube> tubes;
 
@@ -28,7 +27,6 @@ public class PlayState extends State {
         bird = new Bird(50, 100);
         cam.setToOrtho(false, FlappyDemo.WIDTH / 2, FlappyDemo.HEIGHT / 2);
         bg = new Texture("bg.png");
-        tube = new Tube(100);
 
         tubes = new Array<Tube>();
 
@@ -50,7 +48,8 @@ public class PlayState extends State {
         bird.update(dt);
         cam.position.x = bird.getPosition().x + 80;
 
-        for(Tube tube : tubes) {
+        for(int i = 0; i < tubes.size; i++) {
+            Tube tube = tubes.get(i);
             final float camPos = cam.position.x - (cam.viewportWidth / 2.0f);
             final float tubeEdge = tube.getPosTopTube().x + tube.getTopTube().getWidth();
             final boolean isOffScreen = camPos > tubeEdge;
@@ -88,5 +87,10 @@ public class PlayState extends State {
     @Override
     public void dispose() {
         bg.dispose();
+        bird.dispose();
+        for(Tube tube : tubes) {
+            tube.dispose();
+        }
+
     }
 }
