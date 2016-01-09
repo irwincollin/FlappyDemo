@@ -2,6 +2,7 @@ package com.collinirwin.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -16,13 +17,20 @@ public class FlappyDemo extends ApplicationAdapter {
 
 	private GameStateManager gsm;
 	private SpriteBatch batch;
-	
+
+	private Music bgTheme;
+
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 
 		gsm = new GameStateManager();
 		gsm.push(new MenuState(gsm));
+
+		bgTheme = Gdx.audio.newMusic(Gdx.files.internal("music.mp3"));
+		bgTheme.setLooping(true);
+		bgTheme.setVolume(0.1f);
+		bgTheme.play();
 	}
 
 	@Override
@@ -32,5 +40,10 @@ public class FlappyDemo extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		gsm.update(Gdx.graphics.getDeltaTime());
 		gsm.render(batch);
+	}
+
+	@Override
+	public void dispose() {
+		bgTheme.dispose();
 	}
 }
