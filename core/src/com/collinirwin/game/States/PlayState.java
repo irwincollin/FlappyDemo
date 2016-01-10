@@ -2,6 +2,7 @@ package com.collinirwin.game.states;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -26,6 +27,8 @@ public class PlayState extends State {
 
     private Array<Tube> tubes;
 
+    private BitmapFont font;
+
     public PlayState(GameStateManager gsm) {
         super(gsm);
         bird = new Bird(50, 250);
@@ -41,6 +44,8 @@ public class PlayState extends State {
         float pos = cam.position.x - cam.viewportWidth / 2;
         groundPos1 = new Vector2(pos, GROUND_Y_OFFSET);
         groundPos2 = new Vector2(pos + ground.getWidth(), GROUND_Y_OFFSET);
+
+        font = new BitmapFont();
     }
 
     @Override
@@ -83,7 +88,6 @@ public class PlayState extends State {
         sb.setProjectionMatrix(cam.combined);
         sb.begin();
         sb.draw(bg, cam.position.x - (cam.viewportWidth / 2), 0);
-
         Vector3 birdPos = bird.getPosition();
         sb.draw(bird.getTexture(), birdPos.x, birdPos.y);
 
@@ -96,7 +100,14 @@ public class PlayState extends State {
         sb.draw(ground, groundPos1.x, groundPos1.y);
         sb.draw(ground, groundPos2.x, groundPos1.y);
 
+        font.draw(sb, "" + IncScore(), cam.position.x, cam.position.y + (cam.viewportHeight / 2.11f) - 15.0f);
+
         sb.end();
+    }
+
+    private int score = 0;
+    private int IncScore() {
+        return ++score;
     }
 
     @Override
